@@ -75,47 +75,52 @@ app.post('/login', (req, res) => {
     }
     )
   });
-  async function checkCredentials(email, password) {
-
-
-    const sql = {
-      text: 'select * from users WHERE email = $1',
-      values: [email],
-    };
-  
-    const results = await client.query(sql);
-  
-    if (results.rows.length > 0) {
-      const user = results.rows[0];
-      const match = await bcrypt.compare(password, user.password);
-  
-      if (match) {
-        return user;
-      }
+  // Register
+app.post('/register', (req, res) => {
+  let firstname = req.body.firstname
+  let lastname = req.body.lastname
+  let email = req.body.email
+  let password = req.body.password
+  client.query(sql_emailUser, (error, data) => {
+    if (error) {
+      console.log(error)
     }
-  
-    return null;
-  }
-
-  app.post('/login', async (req, res) => {
-      const email = req.body.email;
-      const password = req.body.password;
-      console.log(email,password)
-
-      const user = await checkCredentials(email, password);
-      
-      console.log(user);
-  
-      if(!user){    
-          res.status(403).send('Wrong credentials');
-      }else {    
-          
-        const token = jwt.sign({ email }, secret);
-        res.json({ message: "Login successful", token });
-        
-      }
+    const userFinded = data.rows.find(u => u.email === email)
+    console.log(data.rows)
+    if (userFinded) {
+      res.json({"message":"email existed"})
+    }
+    else {
+      bcrypt.hash(password, 10, (error, hash) => {
+        if (error) {
+          console.error("Error hashing password: ", error);
+          return res.status(500).json({ message: "Internal server error" });
+        }
+        let callBack = (error, data) => {
+          if (error) {
+            console.log(error)
+            res.json(error)
+            return
+          }
+          res.json({message:"User Added successfully"})
+        }
+        client.query(sql_addUser, [firstname,lastname,email,hash], callBack);
+      });  
+    }
+    })
   });
-
+//getAll Products
+app.get('/products', (req, res) => {
+    
+    client.query(sql_allProduct,(error,data) => {
+        if(error)
+        {
+          console.log(error)
+          return
+        }
+        res.json(data.rows)
+      });
+  })
   // Middleware : 
   
   const authenticate = (req, res, next) => {
