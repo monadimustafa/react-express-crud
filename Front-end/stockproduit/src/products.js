@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import {Table,Button,Form, Card} from 'react-bootstrap'
+import Navbar from "./Navbar";
 
-function ProductList() {
+export default function Products() {
   const [products, setProducts] = useState([]);
   const [id,setId] = useState(0)
   const [name,setName] = useState("")
@@ -91,8 +92,10 @@ function ProductList() {
   return (
     
     <div className="container">
+      <Navbar />
       <Card>
         <Card.Header>
+          <label for="search">Search : </label>
         <input type="text" value={keyword} onChange={(event)=>setKeyword(event.target.value)}/>
         <input type="checkbox" value={stockCheck}  onChange={(event)=>setStockCheck(event.target.checked)}/>
         </Card.Header>
@@ -153,11 +156,6 @@ function ProductList() {
    </Card>
    </div>
   );
-
-  
- 
-  
- 
   
 }
-export default ProductList;
+
