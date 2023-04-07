@@ -11,7 +11,7 @@ export default function Login(){
         event.preventDefault();
           fetch("http://localhost:5000/login", {
           method: "POST",
-          body: JSON.stringify({ email, password }),
+          body: JSON.stringify({email,password}),
           credentials: "include",
           headers: {
             "Content-Type": "application/json",
@@ -19,7 +19,8 @@ export default function Login(){
         })
         .then((response) => response.json())    
         .then((data) => 
-          {if(data.message==="Login successful")navigate("/login")}  
+          {if(data.message==="Login successful"){navigate("/");}
+          else{alert("Erreur d'authentification!!!");}}
           )
         .catch((error) => alert("Erreur d'authentification!!!"));
         
