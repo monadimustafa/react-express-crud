@@ -36,15 +36,15 @@ export default function(){
       
         <div>
             <Navbar/>
-            <Card style={{marginTop:10}}>
+            <Card id="cardUser" style={{marginTop:100}}>
     <Card.Header>
      Register
     </Card.Header>
     <Card.Body>
     <Form onSubmit={handRegister}>
-    <label className="label">LastName</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    <label className="label">Lastname</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <input className="input" type="text" value={lastname} onChange={(event)=>setLastname(event.target.value)}/><br/>
-    <label>Password</label>
+    <label>Firstname</label>
     <input type="text" value={firstname} onChange={(event)=>setFirstname(event.target.value)}/><br/>
     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
     <label>Email</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;

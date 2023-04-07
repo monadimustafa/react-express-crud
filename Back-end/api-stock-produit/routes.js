@@ -153,7 +153,7 @@ app.get('/products/:id', (req, res) => {
   })
 
   // add product
-app.post('/products',(req,res)=>{
+app.post('/products',authenticate,(req,res)=>{
     let productData = [req.body.name,req.body.description,req.body.price,req.body.stock]
     let callBack = (error,data) => {
       if(error)
@@ -168,7 +168,7 @@ app.post('/products',(req,res)=>{
   })
 
 //delete user by id
-app.delete('/products/:id', (req, res) => {
+app.delete('/products/:id', authenticate,(req, res) => {
     let id = [req.params.id]
       client.query(sql_deleteProduct,id,(error,data) => {
         if(error)
@@ -182,7 +182,7 @@ app.delete('/products/:id', (req, res) => {
     }
     )
 //put product
-app.put('/products/:id',(req,res)=>{
+app.put('/products/:id',authenticate,(req,res)=>{
   let id = req.params.id
   let name=req.body.name
   let description= req.body.description

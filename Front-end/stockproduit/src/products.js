@@ -91,12 +91,13 @@ export default function Products() {
 
   return (
     
-    <div className="container">
+    <div>
       <Navbar />
       <Card>
         <Card.Header>
           <label for="search">Search : </label>
         <input type="text" value={keyword} onChange={(event)=>setKeyword(event.target.value)}/>
+        <label for="Stock">Produits en Stock</label>
         <input type="checkbox" value={stockCheck}  onChange={(event)=>setStockCheck(event.target.checked)}/>
         </Card.Header>
         <Card.Body>
@@ -135,7 +136,7 @@ export default function Products() {
     </Table>
         </Card.Body>
       </Card>
-   <Card style={{marginTop:10}}>
+   <Card style={{marginTop:10}} id="cardUser">
     <Card.Header>
      Ajout Product
     </Card.Header>
